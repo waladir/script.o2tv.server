@@ -1,0 +1,36 @@
+﻿<addon id="script.o2tv.server" name="O2TV Server" provider-name="waladir" version="1.0.3">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+    <import addon="script.module.bottle"/>
+  </requires>
+  <extension library="server.py" point="xbmc.service"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="cs_CZ">O2TV Server</summary>
+    <description lang="cs_CZ">
+Alternativa k IPTV Web Serveru pro O2TV 2.0
+
+Playlist: http://&lt;server&gt;:&lt;port&gt;/playlist
+    </description>    
+    <platform>all</platform>
+    <source>https://github.com/waladir/script.o2tv.server</source>
+    <news>
+v1.0.3 (11.03.2024)
+- přidání generování EPG (URL /epg)
+- přejmenování adresáře na script.o2tv.server
+
+v1.0.2 (10.03.2024)
+- přidání virtuálních kanálů pro multidimenzi
+- přidána stránka s resetem kanálů a session
+
+v1.0.1 (09.03.2024)
+- úprava detekce Kodi
+- oprava otevření config.txt na Windows    
+
+v1.0.0 (08.03.2024)
+- první verze
+    </news>
+    <assets>
+        <icon>icon.png</icon>
+    </assets>
+  </extension>
+</addon>
