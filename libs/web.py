@@ -34,10 +34,8 @@ def playlist():
             channel_name = channels[channel]['name'].replace(' HD', '')
         else:
             channel_name = channels[channel]['name']
-        output += '#EXTINF:-1 provider="O2TV" tvg-chno="' + str(channels[channel]['channel_number']) + '" tvg-logo="' + logo + '" catchup-days="7" catchup="append" catchup-source="?start_ts={utc}&ent_ts={utcend}", ' + channel_name + '\n'
-        output += '#KODIPROP:inputstream=inputstream.ffmpegdirect\n'
-        output += '#KODIPROP:inputstream.ffmpegdirect.stream_mode=timeshift\n'
-        output += '#KODIPROP:inputstream.ffmpegdirect.is_realtime_stream=true\n'
+        output += '#EXTINF:-1 provider="O2TV" tvg-chno="' + str(channels[channel]['channel_number']) + '" tvg-logo="' + logo + '" catchup-days="7" catchup="append" catchup-source="?start_ts={utc}&end_ts={utcend}", ' + channel_name + '\n'
+        output += '#KODIPROP:inputstream=inputstream.adaptive\n'
         output += '#KODIPROP:inputstream.adaptive.manifest_type=mpd\n'
         output += '#KODIPROP:mimetype=application/dash+xml\n'
         output += 'http://' + str(ip) + ":" + str(port)  + "/play/" + quote(channel_name) + '.mpd\n'
@@ -47,7 +45,7 @@ def playlist():
 @route('/play/<channel>')
 def play(channel):
     channel = unquote(channel.replace('.mpd', ''))
-    if 'utc' in request.query:
+    if 'start_ts' in request.query:
         stream = get_archive(channel, request.query['start_ts'], request.query['end_ts'])
     else:
         stream = get_live(channel)

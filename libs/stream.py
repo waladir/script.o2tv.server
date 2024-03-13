@@ -59,7 +59,7 @@ def get_archive(channel_name, start_ts, end_ts):
         if epg[start_ts]['endts'] > int(time.mktime(datetime.now().timetuple()))-10:
             return get_live(channel_name)
         else:
-            post = {"1":{"service":"asset","action":"get","id":id,"assetReferenceType":"epg_internal","ks":session['ks']},"2":{"service":"asset","action":"getPlaybackContext","assetId":id,"assetType":"epg","contextDataParams":{"objectType":"KalturaPlaybackContextOptions","context":"CATCHUP","streamerType":"mpegdash","urlType":"DIRECT"},"ks":session['ks']},"apiVersion":"7.8.1","ks":session['ks'],"partnerId":partnerId}
+            post = {"1":{"service":"asset","action":"get","id":epg[start_ts]['id'],"assetReferenceType":"epg_internal","ks":session['ks']},"2":{"service":"asset","action":"getPlaybackContext","assetId":epg[start_ts]['id'],"assetType":"epg","contextDataParams":{"objectType":"KalturaPlaybackContextOptions","context":"CATCHUP","streamerType":"mpegdash","urlType":"DIRECT"},"ks":session['ks']},"apiVersion":"7.8.1","ks":session['ks'],"partnerId":partnerId}
             data = call_o2_api(url = 'https://' + partnerId + '.frp1.ott.kaltura.com/api_v3/service/multirequest', data = post)
             if 'err' not in data and 'result' in data and len(data['result']) > 0 and 'sources' in data['result'][1]:
                 urls = {}
