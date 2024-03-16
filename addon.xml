@@ -1,4 +1,4 @@
-﻿<addon id="script.o2tv.server" name="O2TV Server" provider-name="waladir" version="1.0.4">
+﻿<addon id="script.o2tv.server" name="O2TV Server" provider-name="waladir" version="1.0.5">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
     <import addon="script.module.bottle"/>
@@ -14,6 +14,9 @@ Playlist: http://&lt;server&gt;:&lt;port&gt;/playlist
     <platform>all</platform>
     <source>https://github.com/waladir/script.o2tv.server</source>
     <news>
+v1.0.5 (15.03.2024)
+- rozšíření "homepage"
+
 v1.0.4 (13.03.2024)
 - oprava přehrání z IPTV Simple Clienta
 - oprava catchupu
@@ -29,9 +32,6 @@ v1.0.2 (10.03.2024)
 v1.0.1 (09.03.2024)
 - úprava detekce Kodi
 - oprava otevření config.txt na Windows    
-
-v1.0.0 (08.03.2024)
-- první verze
     </news>
     <assets>
         <icon>icon.png</icon>

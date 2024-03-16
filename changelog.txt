@@ -1,0 +1,18 @@
+v1.0.5 (15.03.2024)
+- rozšíření "homepage"
+
+v1.0.4 (13.03.2024)
+- oprava přehrání z IPTV Simple Clienta
+- oprava catchupu
+
+v1.0.3 (11.03.2024)
+- přidání generování EPG (URL /epg)
+- přejmenování adresáře na script.o2tv.server
+
+v1.0.2 (10.03.2024)
+- přidání virtuálních kanálů pro multidimenzi
+- přidána stránka s resetem kanálů a session
+
+v1.0.1(09.03.2024)
+- úprava detekce Kodi
+- oprava otevření config.txt na Windows

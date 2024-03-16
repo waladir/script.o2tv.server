@@ -9,7 +9,7 @@ from libs.utils import clientTag, partnerId, get_config_value, log_message
 def call_o2_api(url, data):
     headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0', 'Accept-Encoding' : 'gzip', 'Accept' : '*/*', 'Content-type' : 'application/json;charset=UTF-8'} 
     if data != None:
-        data = json.dumps(data).encode("utf-8")
+        data = json.dumps(data).encode('utf-8')
     request = Request(url = url , data = data, headers = headers)
 
     if get_config_value('debug') == 1 or get_config_value('debug') == 'true':
@@ -18,7 +18,7 @@ def call_o2_api(url, data):
         log_message(str(data))
     try:
         response = urlopen(request, timeout = 10)
-        if response.getheader("Content-Encoding") == 'gzip':
+        if response.getheader('Content-Encoding') == 'gzip':
             gzipFile = gzip.GzipFile(fileobj = response)
             html = gzipFile.read()
         else:
