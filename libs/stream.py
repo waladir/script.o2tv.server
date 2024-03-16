@@ -25,9 +25,9 @@ def get_live(channel_name):
     session = load_session()
     channel_id = get_channel_id(channel_name)
     epg_id = -1
-    epg = get_live_epg()[channel_id]
-    if 'id' in epg:
-        epg_id = epg['id']
+    epg = get_live_epg()
+    if channel_id in epg and 'id' in epg[channel_id]:
+        epg_id = epg[channel_id]['id']
     if epg_id > 0:
         post = {"1":{"service":"asset","action":"get","id":epg_id,"assetReferenceType":"epg_internal","ks":session['ks']},"2":{"service":"asset","action":"getPlaybackContext","assetId":epg_id,"assetType":"epg","contextDataParams":{"objectType":"KalturaPlaybackContextOptions","context":"START_OVER","streamerType":"mpegdash","urlType":"DIRECT"},"ks":session['ks']},"apiVersion":"7.8.1","ks":session['ks'],"partnerId":partnerId}    
     else:
