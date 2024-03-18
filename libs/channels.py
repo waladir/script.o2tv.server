@@ -35,7 +35,7 @@ def get_channels():
             else:
                 image = None
                 imagesq = None
-            channels_data.update({int(channel['id']) : {'channel_number' : number, 'o2_number' : number, 'name' : channel['name'], 'id' : channel['id'], 'logo' : image, 'logosq' : imagesq, 'adult' : channel['metas']['Adult']['value'] , 'visible' : True}})
+            channels_data.update({int(channel['id']) : {'channel_number' : number, 'o2_number' : number, 'name' : channel['name'].strip(), 'id' : channel['id'], 'logo' : image, 'logosq' : imagesq, 'adult' : channel['metas']['Adult']['value'] , 'visible' : True}})
     for channel in sorted(channels_data, key = lambda channel: channels_data[channel]['channel_number']):
         channels.update({channel : channels_data[channel]})
     return channels

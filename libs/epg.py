@@ -111,7 +111,7 @@ def epg_api(post, key):
 
             epg_item = {'id' : id, 'title' : title, 'channel_id' : channel_id, 'description' : description, 'startts' : startts, 'endts' : endts, 'cover' : cover, 'poster' : poster, 'original' : original, 'imdb' : imdb, 'year' : year, 'contentType' : contentType, 'genres' : genres, 'cast' : cast, 'directors' : directors, 'writers' : writers, 'country' : country, 'episodeNumber' : episodeNumber, 'seasonNumber' : seasonNumber, 'episodesInSeason' : episodesInSeason, 'episodeName' : episodeName, 'seasonName' : seasonName, 'seriesName' : seriesName, 'isSeries' : isSeries, 'seriesId' : seriesId, 'md' : md, 'md_ids' : md_ids}
             if key == 'startts':
-                epg.update({startts : epg_item})
+                epg.update({int(str(channel_id) + str(startts)) : epg_item})
             elif key == 'channel_id':
                 epg.update({channel_id : epg_item})
             elif key == 'id':
@@ -147,8 +147,8 @@ def get_epg():
             channels_ids = []
             for id in channels:
                 channels_ids.append("linear_media_id:'" + str(id) + "'")
-            for i in range(0, len(channels_ids), 2):
-                channels_query = ' '.join(channels_ids[i:i+2])
+            for i in range(0, len(channels_ids), 5):
+                channels_query = ' '.join(channels_ids[i:i+5])
                 cnt = 0
                 content = ''
                 post = {"language":"ces","ks":session['ks'],"filter":{"objectType":"KalturaSearchAssetFilter","orderBy":"START_DATE_ASC","kSql":"(and (or " + channels_query + ") start_date >= '" + str(today_start_ts - 60*60*24*int(get_config_value('epg_dnu_zpetne'))) + "' end_date  <= '" + str(today_end_ts + 60*60*24*int(get_config_value('epg_dnu_dopredu'))) + "' asset_type='epg' auto_fill= true)"},"pager":{"objectType":"KalturaFilterPager","pageSize":500,"pageIndex":1},"clientTag":clientTag,"apiVersion":apiVersion}

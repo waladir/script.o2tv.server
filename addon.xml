@@ -1,4 +1,4 @@
-﻿<addon id="script.o2tv.server" name="O2TV Server" provider-name="waladir" version="1.0.7">
+﻿<addon id="script.o2tv.server" name="O2TV Server" provider-name="waladir" version="1.0.8">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
     <import addon="script.module.bottle"/>
@@ -14,6 +14,10 @@ Playlist: http://&lt;server&gt;:&lt;port&gt;/playlist
     <platform>all</platform>
     <source>https://github.com/waladir/script.o2tv.server</source>
     <news>
+v1.0.8 (18.03.2024)
+- ošetření mezer za jménem kanálu
+- úprava generování EPG
+
 v1.0.7 (18.03.2024)
 - ošetření lomítka v názvu kanálu 
 
@@ -26,10 +30,6 @@ v1.0.5 (15.03.2024)
 v1.0.4 (13.03.2024)
 - oprava přehrání z IPTV Simple Clienta
 - oprava catchupu
-
-v1.0.3 (11.03.2024)
-- přidání generování EPG (URL /epg)
-- přejmenování adresáře na script.o2tv.server
     </news>
     <assets>
         <icon>icon.png</icon>
