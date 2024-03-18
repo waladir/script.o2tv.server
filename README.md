@@ -21,6 +21,9 @@ EPG lze pak stáhnout z http://<adresa nebo jméno serveru>:<port (defaultně 80
 Na http://<adresa nebo jméno serveru>:<port (defaultně 8081)>, např. http://127.0.0.1:8081 je možné stiskem tlačítka vynutit načtení kanálů nebo vytvotvoření nové sessiony.
 
 <b><u>Změny</u></b>
+v1.0.7 (18.03.2024)
+- ošetření lomítka v názvu kanálu 
+
 v1.0.6 (17.03.2024)
 - oprava přehrávání u kanálů bez EPG
 
@@ -34,7 +37,3 @@ v1.0.4 (13.03.2024)
 v1.0.3 (11.03.2024)
 - přidání generování EPG (URL /epg)
 - přejmenování adresáře na script.o2tv.server
-
-v1.0.2 (10.03.2024)
-- přidání virtuálních kanálů pro multidimenzi
-- přidána stránka s resetem kanálů a session

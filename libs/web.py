@@ -38,13 +38,13 @@ def playlist():
         output += '#KODIPROP:inputstream=inputstream.adaptive\n'
         output += '#KODIPROP:inputstream.adaptive.manifest_type=mpd\n'
         output += '#KODIPROP:mimetype=application/dash+xml\n'
-        output += 'http://' + str(ip) + ':' + str(port)  + '/play/' + quote(channel_name) + '.mpd\n'
+        output += 'http://' + str(ip) + ':' + str(port)  + '/play/' + quote(channel_name.replace('/', 'sleš')) + '.mpd\n'
     response.content_type = 'text/plain; charset=UTF-8'
     return output
 
 @route('/play/<channel>')
 def play(channel):
-    channel = unquote(channel.replace('.mpd', ''))
+    channel = unquote(channel.replace('.mpd', '')).replace('sleš', '/')
     if 'start_ts' in request.query:
         stream = get_archive(channel, request.query['start_ts'], request.query['end_ts'])
     else:
@@ -76,7 +76,7 @@ def page():
     playlist = []
     channels = load_channels()
     for channel in channels:
-        playlist.append({'name' : channels[channel]['name'], 'url' : base_url + '/play/' + quote(channels[channel]['name']) + '.mpd', 'logo' : channels[channel]['logo']})
+        playlist.append({'name' : channels[channel]['name'], 'url' : base_url + '/play/' + quote(channels[channel]['name'].replace('/', 'sleš')) + '.mpd', 'logo' : channels[channel]['logo']})
     return template(os.path.join(get_script_path(), 'resources', 'templates', 'form.tpl'), message = message, playlist_url = playlist_url, epg_url = epg_url, playlist = playlist)
 
 def start_server():
