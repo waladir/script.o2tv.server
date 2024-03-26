@@ -34,7 +34,7 @@ def playlist():
             channel_name = channels[channel]['name'].replace(' HD', '')
         else:
             channel_name = channels[channel]['name']
-        output += '#EXTINF:-1 provider="O2TV" tvg-chno="' + str(channels[channel]['channel_number']) + '" tvg-logo="' + logo + '" catchup-days="7" catchup="append" catchup-source="?start_ts={utc}&ent_ts={utcend}", ' + channel_name + '\n'
+        output += '#EXTINF:-1 provider="O2TV" tvg-chno="' + str(channels[channel]['channel_number']) + '" tvg-logo="' + logo + '" catchup-days="7" catchup="append" catchup-source="?start_ts={utc}&end_ts={utcend}", ' + channel_name + '\n'
         output += '#KODIPROP:inputstream=inputstream.adaptive\n'
         output += '#KODIPROP:inputstream.adaptive.manifest_type=mpd\n'
         output += '#KODIPROP:mimetype=application/dash+xml\n'

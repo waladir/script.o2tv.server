@@ -55,11 +55,12 @@ def get_archive(channel_name, start_ts, end_ts):
     session = load_session()
     channel_id = get_channel_id(channel_name)
     epg = get_channel_epg(id = channel_id, start_ts = start_ts, end_ts = end_ts + 60*60*12)
-    if start_ts in epg:
-        if epg[start_ts]['endts'] > int(time.mktime(datetime.now().timetuple()))-10:
+    id = int(str(channel_id) + str(start_ts))
+    if id in epg:
+        if epg[id]['endts'] > int(time.mktime(datetime.now().timetuple()))-10:
             return get_live(channel_name)
         else:
-            post = {"1":{"service":"asset","action":"get","id":epg[start_ts]['id'],"assetReferenceType":"epg_internal","ks":session['ks']},"2":{"service":"asset","action":"getPlaybackContext","assetId":epg[start_ts]['id'],"assetType":"epg","contextDataParams":{"objectType":"KalturaPlaybackContextOptions","context":"CATCHUP","streamerType":"mpegdash","urlType":"DIRECT"},"ks":session['ks']},"apiVersion":"7.8.1","ks":session['ks'],"partnerId":partnerId}
+            post = {"1":{"service":"asset","action":"get","id":epg[id]['id'],"assetReferenceType":"epg_internal","ks":session['ks']},"2":{"service":"asset","action":"getPlaybackContext","assetId":epg[id]['id'],"assetType":"epg","contextDataParams":{"objectType":"KalturaPlaybackContextOptions","context":"CATCHUP","streamerType":"mpegdash","urlType":"DIRECT"},"ks":session['ks']},"apiVersion":"7.8.1","ks":session['ks'],"partnerId":partnerId}
             data = call_o2_api(url = 'https://' + partnerId + '.frp1.ott.kaltura.com/api_v3/service/multirequest', data = post)
             if 'err' not in data and 'result' in data and len(data['result']) > 0 and 'sources' in data['result'][1]:
                 urls = {}
