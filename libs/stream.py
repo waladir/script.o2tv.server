@@ -31,7 +31,7 @@ def get_live(channel_name):
     if epg_id > 0:
         post = {"1":{"service":"asset","action":"get","id":epg_id,"assetReferenceType":"epg_internal","ks":session['ks']},"2":{"service":"asset","action":"getPlaybackContext","assetId":epg_id,"assetType":"epg","contextDataParams":{"objectType":"KalturaPlaybackContextOptions","context":"START_OVER","streamerType":"mpegdash","urlType":"DIRECT"},"ks":session['ks']},"apiVersion":"7.8.1","ks":session['ks'],"partnerId":partnerId}    
     else:
-        post = {"1":{"service":"asset","action":"get","id":id,"assetReferenceType":"media","ks":session['ks']},"2":{"service":"asset","action":"getPlaybackContext","assetId":id,"assetType":"media","contextDataParams":{"objectType":"KalturaPlaybackContextOptions","context":"PLAYBACK","streamerType":"mpegdash","urlType":"DIRECT"},"ks":session['ks']},"apiVersion":"7.8.1","ks":session['ks'],"partnerId":partnerId}
+        post = {"1":{"service":"asset","action":"get","id":channel_id,"assetReferenceType":"media","ks":session['ks']},"2":{"service":"asset","action":"getPlaybackContext","assetId":channel_id,"assetType":"media","contextDataParams":{"objectType":"KalturaPlaybackContextOptions","context":"PLAYBACK","streamerType":"mpegdash","urlType":"DIRECT"},"ks":session['ks']},"apiVersion":"7.8.1","ks":session['ks'],"partnerId":partnerId}
     try:
         data = call_o2_api(url = 'https://' + partnerId + '.frp1.ott.kaltura.com/api_v3/service/multirequest', data = post)
         if 'err' in data or not 'result' in data or len(data['result']) == 0 or not 'sources' in data['result'][1]:
