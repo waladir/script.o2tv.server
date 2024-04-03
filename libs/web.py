@@ -42,6 +42,32 @@ def playlist():
     response.content_type = 'text/plain; charset=UTF-8'
     return output
 
+@route('/playlist/tvheadend/streamlink')
+def playlist_tvheadend_streamlink():
+    channels = load_channels()
+    output = '#EXTM3U\n'
+    ip = get_config_value('webserver_ip')
+    port = get_config_value('webserver_port')
+    streamlink = get_config_value('cesta_streamlink')
+    if streamlink == None or len(streamlink) == 0:
+        streamlink = '/usr/bin/streamlink'
+    ffmpeg = get_config_value('cesta_ffmpeg')
+    if ffmpeg == None or len(ffmpeg) == 0:
+        ffmpeg = '/usr/bin/ffmpeg'
+    for channel in channels:
+        if channels[channel]['logo'] == None:
+            logo = ''
+        else:
+            logo =  channels[channel]['logo']
+        if get_config_value('odstranit_hd') == 1 or get_config_value('odstranit_hd') == 'true':
+            channel_name = channels[channel]['name'].replace(' HD', '')
+        else:
+            channel_name = channels[channel]['name']
+        output += '#EXTINF:-1 provider="O2TV" tvg-chno="' + str(channels[channel]['channel_number']) + '" tvg-logo="' + logo + '", ' + channel_name + '\n'
+        output += 'pipe://' + streamlink + ' --locale cs_CZ dash://http://' + str(ip) + ':' + str(port)  + '/play/' + quote(channel_name.replace('/', 'sleš')) + '.mpd best --stdout --ffmpeg-ffmpeg "' + ffmpeg + '" --ffmpeg-fout "mpegts"\n'
+    response.content_type = 'text/plain; charset=UTF-8'
+    return output
+
 @route('/play/<channel>')
 def play(channel):
     channel = unquote(channel.replace('.mpd', '')).replace('sleš', '/')
@@ -72,12 +98,13 @@ def page():
             message = 'Sessiona resetována!'
     base_url = 'http://' + str(ip) + ':' + str(port)
     playlist_url = base_url + '/playlist'
+    playlist_tvheadend_streamlink_url = base_url + '/playlist/tvheadend/streamlink'
     epg_url = base_url + '/epg'
     playlist = []
     channels = load_channels()
     for channel in channels:
         playlist.append({'name' : channels[channel]['name'], 'url' : base_url + '/play/' + quote(channels[channel]['name'].replace('/', 'sleš')) + '.mpd', 'logo' : channels[channel]['logo']})
-    return template(os.path.join(get_script_path(), 'resources', 'templates', 'form.tpl'), message = message, playlist_url = playlist_url, epg_url = epg_url, playlist = playlist)
+    return template(os.path.join(get_script_path(), 'resources', 'templates', 'form.tpl'), message = message, playlist_url = playlist_url, playlist_tvheadend_streamlink_url = playlist_tvheadend_streamlink_url, epg_url = epg_url, playlist = playlist)
 
 def start_server():
     port = int(get_config_value('webserver_port'))

@@ -21,6 +21,11 @@ EPG lze pak stáhnout z http://<adresa nebo jméno serveru>:<port (defaultně 80
 Na http://<adresa nebo jméno serveru>:<port (defaultně 8081)>, např. http://127.0.0.1:8081 je možné stiskem tlačítka vynutit načtení kanálů nebo vytvotvoření nové sessiony.
 
 <b><u>Změny</u></b>
+v1.2.0 (03.04.2024)
+- přidání vzoru skriptu pro start O2TV Serveru jako služby
+- přidání playlistu pro TVheadend s použitím streamlink
+- přidání skriptu pro External XMLTV Grabber v TVheadendu
+
 v1.1.0 (29.03.2024)
 - oprava přehrávání u kanálů bez EPG
 
@@ -33,6 +38,3 @@ v1.0.8 (18.03.2024)
 
 v1.0.7 (18.03.2024)
 - ošetření lomítka v názvu kanálu 
-
-v1.0.6 (17.03.2024)
-- oprava přehrávání u kanálů bez EPG

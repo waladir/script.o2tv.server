@@ -1,0 +1,12 @@
+[Unit]
+Description=O2TV Server
+After=network.target
+
+[Service]
+Type=idle
+Restart=on-failure
+User=ludek
+ExecStart=/usr/bin/python3 /home/ludek/script.o2tv.server/server.py
+
+[Install]
+WantedBy=multi-user.target

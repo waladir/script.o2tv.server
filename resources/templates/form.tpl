@@ -22,8 +22,9 @@
     <hr>
     <p>
     <table>
-    <tr><td><b>Playlist:</b> <a href="{{ playlist_url }}">{{ playlist_url }}</a></td><td><button onclick="myFunction('{{ playlist_url }}')"/><img src="/img/clipboard.png" width="15" height="15"></button></td></tr>
-    <tr><td><b>EPG:</b> <a href="{{ epg_url }}">{{ epg_url }}</a></td><td><button onclick="myFunction('{{ epg_url }}')"/><img src="/img/clipboard.png" width="15" height="15"></button></td></tr>
+    <tr><td><b>Playlist</b></td><td><a href="{{ playlist_url }}">{{ playlist_url }}</a></td><td><button onclick="myFunction('{{ playlist_url }}')"/><img src="/img/clipboard.png" width="15" height="15"></button></td></tr>
+    <tr><td><b>Playlist pro TVheadend<br>(se streamlink):</b></td><td><a href="{{ playlist_tvheadend_streamlink_url }}">{{ playlist_tvheadend_streamlink_url }}</a></td><td><button onclick="myFunction('{{ playlist_tvheadend_streamlink_url }}')"/><img src="/img/clipboard.png" width="15" height="15"></button></td></tr>
+    <tr><td><b>EPG</b></td><td><a href="{{ epg_url }}">{{ epg_url }}</a></td><td><button onclick="myFunction('{{ epg_url }}')"/><img src="/img/clipboard.png" width="15" height="15"></button></td></tr>
     <table>
     <hr>
     <h3>Kanály</h3>
