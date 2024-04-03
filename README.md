@@ -1,6 +1,6 @@
 <h1>O2TV Server</h1>
 
-O2TV Server slouží jako alternativa k IPTV Web Serveru pro O2TV 2.0. Lze ho používat buď jako doplněk v Kodi i samostatně. Zatím bude ke stažení tady. Po odladění  a pokud o něj bude zájem ho můžu nechat přidat do repozitáře.
+O2TV Server slouží jako alternativa k IPTV Web Serveru pro O2TV 2.0. Lze ho používat buď jako doplněk v Kodi i samostatně.
 
 <a href="https://www.xbmc-kodi.cz/prispevek-o2tv-server">Vlákno na fóru XBMC-Kodi.cz</a><br><br>
 
@@ -10,7 +10,23 @@ Nainstalujte doplněk a v jeho nastavení vyplňte přihlašovací údaje, devic
 
 <b><u>Samostatný skript</u></b>
 
-Rozbalte zip, zkopírujte config.txt.sample na config.txt a v něm vyplňte jméno, heslo, deviceid a IP adresu nebo jméno serveru. Server spusťte z adresáře service.o2tv.server spuštěním python3 server.py..
+Rozbalte zip, zkopírujte config.txt.sample na config.txt a v něm vyplňte jméno, heslo, deviceid a IP adresu nebo jméno serveru. Server spusťte z adresáře service.o2tv.server spuštěním python3 server.py.<br>
+Pokud chcete O2TV Server spustit na linuxu se systemd jako službu, jako root/přes sudo:
+- zkopírujte z adresáře scripts soubor o2tv_server.service do /etc/systemd/system/
+- systemctl daemon-reload
+- systemctl enable o2tv_server
+- systemctl start o2tv_server
+
+
+<b><u>TVheadend</u></b>
+
+Podporu pro TVheadend berte zatím jako experimentální. Také je potřeba počítat s tím, že např. u TVheadendu v CoreELECu může splnění požadavků a zprovoznění komplikovanější než na plnohodnotných linuxových operačních systémech!
+
+Pro použití O2TV Serveru v TVheadendu je potřeba mít na nainstalovaný streamlink a ffmpeg (na stroji s TVH). Pro načtení EPG přes External XMLTV grabber pak ještě socat.
+
+V config.txt zkontrolujte nastavení cesta_streamlink a cesta_ffmpeg (viz config.txt.sample), v případě Kodi pak analogické položky v nastavení. Při vytváření sítě v TVheadendu použijte adresu http://<adresa nebo jméno serveru>:<port (defaultně 8081)>/playlist/tvheadend/streamlink, např. http://127.0.0.1:8081/playlist/tvheadend/streamlink.
+
+U EPG je jednou z variant využití External XMLTV grabberu. Nejprve ho je potřeba v TVheadnedu povolit (Program/Channels - EPG Grabber modules). V adresáři scripts je připravený skript k epg.sh, který stáhne EPG z O2TV Server a obsah pošle External XMLTV grabberu. Zkontrolujte v něm cestu xmltv.sock (vytvoří se po povolení grabberu) a URL O2TV Serveru.
 
 <b><u>URL</u></b>
 
