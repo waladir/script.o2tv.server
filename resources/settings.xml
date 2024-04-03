@@ -14,7 +14,6 @@
                 <setting label="Odstranit HD ze jména kanalů" type="bool" id="odstranit_hd" default="false"/>
                 <setting label="Cesta k streamlink (TVheadend)" type="text" id="cesta_streamlink" default="/usr/bin/streamlink"/>
                 <setting label="Cesta k ffmpeg (TVheadend)" type="text" id="cesta_ffmpeg" default="/usr/bin/ffmpeg"/>
-                <setting label="Port serveru" type="number" id="webserver_port" default="8081"/>
                 <setting label="Logování" type="bool" id="debug" default="false"/>
 	</category>
 </settings>
