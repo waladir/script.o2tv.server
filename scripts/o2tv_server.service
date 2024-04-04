@@ -5,8 +5,8 @@ After=network.target
 [Service]
 Type=idle
 Restart=on-failure
-User=ludek
-ExecStart=/usr/bin/python3 /home/ludek/script.o2tv.server/server.py
+User=<uzivatel, pod kterym O2TV Server ma bezet>
+ExecStart=/usr/bin/python3 <cesta k O2TV Serveru>/script.o2tv.server/server.py
 
 [Install]
 WantedBy=multi-user.target
