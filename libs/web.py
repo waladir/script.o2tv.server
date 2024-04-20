@@ -38,7 +38,10 @@ def playlist():
         output += '#KODIPROP:inputstream=inputstream.adaptive\n'
         output += '#KODIPROP:inputstream.adaptive.manifest_type=mpd\n'
         output += '#KODIPROP:mimetype=application/dash+xml\n'
-        output += 'http://' + str(ip) + ':' + str(port)  + '/play/' + quote(channel_name.replace('/', 'sleš')) + '.mpd\n'
+        if get_config_value('pouzivat_cisla_kanalu') == None or get_config_value('pouzivat_cisla_kanalu') == 0 or get_config_value('pouzivat_cisla_kanalu') == 'false':
+            output += 'http://' + str(ip) + ':' + str(port)  + '/play/' + quote(channel_name.replace('/', 'sleš')) + '.mpd\n'
+        else:
+            output += 'http://' + str(ip) + ':' + str(port)  + '/play_num/' + str(channels[channel]['id']) + '.mpd\n'
     response.content_type = 'text/plain; charset=UTF-8'
     return output
 
@@ -64,13 +67,29 @@ def playlist_tvheadend_streamlink():
         else:
             channel_name = channels[channel]['name']
         output += '#EXTINF:-1 provider="O2TV" tvg-chno="' + str(channels[channel]['channel_number']) + '" tvg-logo="' + logo + '", ' + channel_name + '\n'
-        output += 'pipe://' + streamlink + ' --locale cs_CZ dash://http://' + str(ip) + ':' + str(port)  + '/play/' + quote(channel_name.replace('/', 'sleš')) + '.mpd best --stdout --ffmpeg-ffmpeg "' + ffmpeg + '" --ffmpeg-fout "mpegts"\n'
+        if get_config_value('pouzivat_cisla_kanalu') == None or get_config_value('pouzivat_cisla_kanalu') == 0 or get_config_value('pouzivat_cisla_kanalu') == 'false':
+            output += 'pipe://' + streamlink + ' --locale cs_CZ dash://http://' + str(ip) + ':' + str(port)  + '/play/' + quote(channel_name.replace('/', 'sleš')) + '.mpd best --stdout --ffmpeg-ffmpeg "' + ffmpeg + '" --ffmpeg-fout "mpegts"\n'
+        else:
+            output += 'pipe://' + streamlink + ' --locale cs_CZ dash://http://' + str(ip) + ':' + str(port)  + '/play_num/' + str(channels[channel]['id']) + '.mpd best --stdout --ffmpeg-ffmpeg "' + ffmpeg + '" --ffmpeg-fout "mpegts"\n'
     response.content_type = 'text/plain; charset=UTF-8'
     return output
 
 @route('/play/<channel>')
 def play(channel):
     channel = unquote(channel.replace('.mpd', '')).replace('sleš', '/')
+    if 'start_ts' in request.query:
+        stream = get_archive(channel, request.query['start_ts'], request.query['end_ts'])
+    else:
+        stream = get_live(channel)
+    response.content_type = 'application/dash+xml'
+    return redirect(stream)
+
+@route('/play_num/<channel>')
+def play_num(channel):
+    channels = load_channels()
+    channel = channels[int(str(channel).replace('.mpd', ''))]['name']
+    if get_config_value('odstranit_hd') == 1 or get_config_value('odstranit_hd') == 'true':
+        channel = channel.replace(' HD', '')
     if 'start_ts' in request.query:
         stream = get_archive(channel, request.query['start_ts'], request.query['end_ts'])
     else:
@@ -102,8 +121,12 @@ def page():
     epg_url = base_url + '/epg'
     playlist = []
     channels = load_channels()
-    for channel in channels:
-        playlist.append({'name' : channels[channel]['name'], 'url' : base_url + '/play/' + quote(channels[channel]['name'].replace('/', 'sleš')) + '.mpd', 'logo' : channels[channel]['logo']})
+    if get_config_value('pouzivat_cisla_kanalu') == None or get_config_value('pouzivat_cisla_kanalu') == 0 or get_config_value('pouzivat_cisla_kanalu') == 'false':
+        for channel in channels:
+            playlist.append({'name' : channels[channel]['name'], 'url' : base_url + '/play/' + quote(channels[channel]['name'].replace('/', 'sleš')) + '.mpd', 'logo' : channels[channel]['logo']})
+    else:
+        for channel in channels:
+            playlist.append({'name' : channels[channel]['name'], 'url' : base_url + '/play_num/' + str(channels[channel]['id']) + '.mpd', 'logo' : channels[channel]['logo']})
     return template(os.path.join(get_script_path(), 'resources', 'templates', 'form.tpl'), message = message, playlist_url = playlist_url, playlist_tvheadend_streamlink_url = playlist_tvheadend_streamlink_url, epg_url = epg_url, playlist = playlist)
 
 def start_server():
