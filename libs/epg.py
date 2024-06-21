@@ -162,9 +162,10 @@ def get_epg():
                     else:
                         channel_name = channels[epg_item['channel_id']]['name']
                     content = content + '    <programme start="' + starttime + ' +0' + str(tz_offset) + '00" stop="' + endtime + ' +0' + str(tz_offset) + '00" channel="' +  replace_by_html_entity(channel_name) + '">\n'
-                    content = content + '       <title lang="cs">' +  replace_by_html_entity(epg_item['title']) + '</title>\n'
-                    if epg_item['original'] != None and len(epg_item['original']) > 0:
-                        content = content + '       <title>' +  replace_by_html_entity(epg_item['original']) + '</title>\n'
+                    content = content + '       <title>' +  replace_by_html_entity(epg_item['title']) + '</title>\n'
+                    # content = content + '       <title lang="cs">' +  replace_by_html_entity(epg_item['title']) + '</title>\n'
+                    # if epg_item['original'] != None and len(epg_item['original']) > 0:
+                    #     content = content + '       <title>' +  replace_by_html_entity(epg_item['original']) + '</title>\n'
                     if epg_item['description'] != None and len(epg_item['description']) > 0:
                         content = content + '       <desc lang="cs">' +  replace_by_html_entity(epg_item['description']) + '</desc>\n'
                     if epg_item['episodeName'] != None and len(epg_item['episodeName']) > 0:
