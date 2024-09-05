@@ -37,6 +37,9 @@ EPG lze pak stáhnout z http://<adresa nebo jméno serveru>:<port (defaultně 80
 Na http://<adresa nebo jméno serveru>:<port (defaultně 8081)>, např. http://127.0.0.1:8081 je možné stiskem tlačítka vynutit načtení kanálů nebo vytvotvoření nové sessiony.
 
 <b><u>Změny</u></b>
+v1.2.3 (05.09.2024)
+- do nastavení přidaná možnost nastavit pořadové číslo služby, která se má použít (-1 = poslední)
+
 v1.2.2 (21.06.2024)
 - odstranění originálního názvu pořadu z EPG
 
@@ -50,6 +53,3 @@ v1.2.0 (03.04.2024)
 
 v1.1.0 (29.03.2024)
 - oprava přehrávání u kanálů bez EPG
-
-v1.0.9 (26.03.2024)
-- oprava catchupu

@@ -9,6 +9,7 @@
 	"interval_stahovani_epg":0,
 	"odstranit_hd":0,
 	"pouzivat_cisla_kanalu":0,
+	"poradi_sluzby":-1,
 	"debug":0,
 	"cesta_streamlink":"/usr/bin/streamlink",
 	"cesta_ffmpeg":"/usr/bin/ffmpeg"

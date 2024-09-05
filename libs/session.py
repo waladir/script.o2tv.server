@@ -41,6 +41,13 @@ def get_token():
     if len(ks_codes) < 1:
         display_message('Problém při přihlášení')
         sys.exit() 
+    idx = 1
+    if get_config_value('poradi_sluzby') is None:
+        service_index = -1
+    else:
+        service_index = int(get_config_value('poradi_sluzby'))
+        if service_index > len(ks_codes):
+            service_index = -1
     
     for service in ks_codes:
         post = {'language' : 'ces', 'ks' : ks, 'partnerId' : int(partnerId), 'username' : 'NONE', 'password' : 'NONE', 'extraParams' : {'token' : {'objectType' : 'KalturaStringValue', 'value' : jwt_token}, 'loginType' : {'objectType' : 'KalturaStringValue', 'value' : 'accessToken'}, 'brandId' : {'objectType' : 'KalturaStringValue', 'value' : '22'}, 'externalId' : {'objectType' : 'KalturaStringValue', 'value' : ks_codes[service]}}, 'udid' : get_config_value('deviceid'), 'clientTag' : clientTag, 'apiVersion' : apiVersion}
@@ -49,6 +56,9 @@ def get_token():
             display_message('Problém při přihlášení')
             sys.exit() 
         session_data.update({'ks_name' : ks_names[service], 'ks_code' : ks_codes[service], 'ks_expiry' : data['result']['loginSession']['expiry'], 'ks_refresh_token' : data['result']['loginSession']['refreshToken'], 'ks' : data['result']['loginSession']['ks']})
+        if service_index > 0 and idx == service_index:
+            return session_data
+        idx = idx + 1
     return session_data
 
 def load_session(reset = False):
