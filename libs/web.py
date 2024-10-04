@@ -2,7 +2,7 @@
 import os
 
 from urllib.parse import quote, unquote
-from bottle import run, route, post, response, request, redirect, template, static_file
+from bottle import run, route, post, response, request, redirect, template, static_file, TEMPLATE_PATH
 
 from libs.session import load_session
 from libs.channels import load_channels
@@ -127,7 +127,8 @@ def page():
     else:
         for channel in channels:
             playlist.append({'name' : channels[channel]['name'], 'url' : base_url + '/play_num/' + str(channels[channel]['id']) + '.mpd', 'logo' : channels[channel]['logo']})
-    return template(os.path.join(get_script_path(), 'resources', 'templates', 'form.tpl'), message = message, playlist_url = playlist_url, playlist_tvheadend_streamlink_url = playlist_tvheadend_streamlink_url, epg_url = epg_url, playlist = playlist)
+    TEMPLATE_PATH.append(os.path.join(get_script_path(), 'resources', 'templates'))
+    return template('form.tpl', message = message, playlist_url = playlist_url, playlist_tvheadend_streamlink_url = playlist_tvheadend_streamlink_url, epg_url = epg_url, playlist = playlist)
 
 def start_server():
     port = int(get_config_value('webserver_port'))
