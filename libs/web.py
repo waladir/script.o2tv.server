@@ -8,7 +8,7 @@ from libs.session import load_session
 from libs.channels import load_channels
 from libs.epg import get_epg, load_epg
 from libs.stream import get_live, get_archive
-from libs.utils import get_config_value, get_script_path
+from libs.utils import get_config_value, get_script_path, get_ip_address
 
 @route('/epg')
 def epg():
@@ -24,6 +24,8 @@ def playlist():
     channels = load_channels()
     output = '#EXTM3U\n'
     ip = get_config_value('webserver_ip')
+    if ip == 'IP':
+        ip = get_ip_address()
     port = get_config_value('webserver_port')
     for channel in channels:
         if channels[channel]['logo'] == None:
@@ -50,6 +52,8 @@ def playlist_tvheadend_streamlink():
     channels = load_channels()
     output = '#EXTM3U\n'
     ip = get_config_value('webserver_ip')
+    if ip == 'IP':
+        ip = get_ip_address()
     port = get_config_value('webserver_port')
     streamlink = get_config_value('cesta_streamlink')
     if streamlink == None or len(streamlink) == 0:
@@ -106,6 +110,8 @@ def add_image(image):
 def page():
     message = ''
     ip = get_config_value('webserver_ip')
+    if ip == 'IP':
+        ip = get_ip_address()
     port = get_config_value('webserver_port')
     if request.params.get('action') is not None:
         action = request.params.get('action')
