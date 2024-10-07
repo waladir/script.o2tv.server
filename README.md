@@ -38,7 +38,7 @@ Na http://<adresa nebo jméno serveru>:<port (defaultně 8081)>, např. http://1
 
 <b><u>Změny</u></b>
 v1.2.5 (07.10.2024)
-- když se v nastevení adresy serveru použije řezězec IP, nastaví se adresa automaticky
+- když se v nastavení adresy serveru použije řezězec IP, nastaví se adresa automaticky
 
 v1.2.4 (04.10.2024)
 - ošetření nefunkční stránky na některých platformách
