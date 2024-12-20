@@ -1,4 +1,4 @@
-﻿<addon id="script.o2tv.server" name="O2TV Server" provider-name="waladir" version="1.2.5">
+﻿<addon id="script.o2tv.server" name="O2TV Server" provider-name="waladir" version="1.2.6">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
     <import addon="script.module.bottle"/>
@@ -14,8 +14,11 @@ Playlist: http://&lt;server&gt;:&lt;port&gt;/playlist
     <platform>all</platform>
     <source>https://github.com/waladir/script.o2tv.server</source>
     <news>
+v1.2.6 (20.12.2024)
+- ošetření chyby v EPG datech
+
 v1.2.5 (07.10.2024)
-- když se v nastavení adresy serveru použije řetězec IP, nastaví se adresa automaticky
+- když se v nastavení adresy serveru použije řezězec IP, nastaví se adresa automaticky
 
 v1.2.4 (04.10.2024)
 - ošetření nefunkční stránky na některých platformách
@@ -25,9 +28,6 @@ v1.2.3 (05.09.2024)
 
 v1.2.2 (21.06.2024)
 - odstranění originálního názvu pořadu z EPG
-
-v1.2.1 (21.04.2024)
-- přidaná možnost změna identifikace kanálu z jména na ID
     </news>
     <assets>
         <icon>icon.png</icon>
